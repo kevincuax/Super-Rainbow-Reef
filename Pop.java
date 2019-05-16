@@ -77,34 +77,7 @@ public class Pop extends GameObject {
 
 
 
-//    private void collision(){
-//        try {
-//            for (GameObject tempObject : handler.object) {
-//
-//                if (tempObject.getId() == ID.Block) {
-//
-//                    if (getBounds().intersects(tempObject.getBounds())) {
-//                        this.x += this.velX * -2;
-//                        this.y += this.velY * -2;
-//                    }
-//
-//
-//
-//
-//                }
-//                if(tempObject.getId()==ID.BreakableBlock){
-//                    if (getBounds().intersects(tempObject.getBounds())) {
-//                        this.x += this.velX * -2;
-//                        this.y += this.velY * -2;
-//                    }
-//                }
-//            }
-//
-//        }
-//        catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
+
 
     public Rectangle getBounds(){
         return new Rectangle(this.getX(), this.getY(), 35, 35);
@@ -186,15 +159,12 @@ public class Pop extends GameObject {
         // up down left right
         if(pop.getDirection() == "upDown_leftRight") {
             pop.setX(pop.getX() + dx);
-
                 pop.setY(pop.getY() + dy);
         }
 
         // up down right left
         if(pop.getDirection() == "upDown_rightLeft") {
-
             pop.setX(pop.getX() - dx);
-
                 pop.setY(pop.getY() + dy);
 
         }

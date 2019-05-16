@@ -43,7 +43,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
     protected int velX = 0, velY = 0;
 
-    private MapGenerator map;
+
     Image image;
 
     ArrayList<Block> blocks;
@@ -70,7 +70,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     private boolean gameOver;
     private float alpha;
     private boolean lvl2Beat;
-
+    private boolean gameWon;
 
 
     public Gameplay(){
@@ -90,6 +90,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         lvl1Beat = false;
         lvl2Beat = false;
         gameOver = false;
+        gameWon = false;
 
         tStart = System.currentTimeMillis();
         tEnd = 0;
@@ -119,7 +120,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         biglegCount2 = biglegs2.size();
         biglegCount3 = biglegs3.size();
 
-        map = new MapGenerator(3, 7);
         addKeyListener(this);
         this.setFocusable(true);
         setFocusTraversalKeysEnabled(false );
@@ -157,6 +157,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
             sprites.put("quit", this.getSprite("Resources/Button_quit.gif"));
             sprites.put("scores", this.getSprite("Resources/Button_scores.gif"));
             sprites.put("start", this.getSprite("Resources/Button_start.gif"));
+            sprites.put("congrats", this.getSprite("Resources/Congratulation.gif"));
 
         }
         catch (Exception e){
@@ -446,6 +447,12 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
     }
 
+    public void drawCongrats(Graphics g){
+        Image img;
+        img = sprites.get("congrats");
+        g.drawImage(img, 0, 0, 640, 480, null);
+    }
+
 
 
 
@@ -455,57 +462,58 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         double timePassed = getCurrentSeconds();
 
 
+        if(!gameWon) {
+            if (timePassed < 10) {
 
-        if(timePassed < 10){
 
-
-            this.drawTitle(g);
-            g.setFont(new Font("Courier", Font.PLAIN, 24));
+                this.drawTitle(g);
+                g.setFont(new Font("Courier", Font.PLAIN, 24));
 //            g.drawString("Loading...", 500, 440);
 
-            if(timePassed < 2.01){
-                g.drawString("Loading...", 500, 440);
-            }
-            if(timePassed > 2.01 && timePassed < 5.01){
-                g.drawString("Loading..", 500, 440);
-            }
-            if(timePassed > 5.01 && timePassed < 8.01){
-                g.drawString("Loading.", 500, 440);
+                if (timePassed < 2.01) {
+                    g.drawString("Loading...", 500, 440);
+                }
+                if (timePassed > 2.01 && timePassed < 5.01) {
+                    g.drawString("Loading..", 500, 440);
+                }
+                if (timePassed > 5.01 && timePassed < 8.01) {
+                    g.drawString("Loading.", 500, 440);
 
-            }
-            if(timePassed > 8.01 && timePassed < 10.01){
-                g.drawString("Loading...", 500, 440);
+                }
+                if (timePassed > 8.01 && timePassed < 10.01) {
+                    g.drawString("Loading...", 500, 440);
 
-            }
+                }
 
-            }
-        else {
-            if (!gameOver) {
-                this.setBackground(g);
+            } else {
+                if (!gameOver) {
+                    this.setBackground(g);
 
-                this.resetPos();
-                this.wallCollision();
-                this.setLvl1Beat();
-                this.drawScore(g);
-                this.drawTime(g);
-                this.drawLives(g);
-                this.drawBigleg(g);
-                this.drawBigleg2(g);
-                this.drawBigleg3(g);
-                this.drawBlocks(g);
-                this.drawWalls(g);
-                this.drawPop(g);
-                this.drawKatch(g);
-                this.drawGlowBonus(g, elapsedSeconds, glowOn, bonusBlock);
+                    this.resetPos();
+                    this.wallCollision();
+                    this.setLvl1Beat();
+                    this.drawScore(g);
+                    this.drawTime(g);
+                    this.drawLives(g);
+                    this.drawBigleg(g);
+                    this.drawBigleg2(g);
+                    this.drawBigleg3(g);
+                    this.drawBlocks(g);
+                    this.drawWalls(g);
+                    this.drawPop(g);
+                    this.drawKatch(g);
+                    this.drawGlowBonus(g, elapsedSeconds, glowOn, bonusBlock);
 
-            }
-            if (gameOver) {
-                this.setBackground(g);
+                }
+                if (gameOver) {
+                    this.setBackground(g);
 
-                drawGameover(g);
+                    drawGameover(g);
+                }
             }
         }
-
+        if(gameWon)
+            this.drawCongrats(g);
 
     }
 
@@ -527,7 +535,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
             Wall wall = new Wall(620, (i + 1) * 20, ID.Wall, sprites.get("wall"));
             walls.add(wall);
         }
-    }
+        }
+
 
     public void addBlocks1(){
         //solids
@@ -694,20 +703,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     }
 
     public void addBlocks3(){
-//        //solids
-//        for(int i = 0; i < 12; i++) {
-//            Block solid1 = new Block(100, i * 20 + 20, ID.Block, sprites.get("solidBlock"));
-//            blocks3.add(solid1);
-//            Block solid2 = new Block(220, i * 20 + 20, ID.Block, sprites.get("solidBlock"));
-//            blocks3.add(solid2);
-//            Block solid3 = new Block(380, i * 20 + 20, ID.Block, sprites.get("solidBlock"));
-//            blocks3.add(solid3);
-//            Block solid4 = new Block(500, i * 20 + 20, ID.Block, sprites.get("solidBlock"));
-//            blocks3.add(solid4);
-//
-//        }
-//
-//
+
         // life block
         for(int i = 0; i < 2; i++) {
             Block life1 = new Block(i * 40 + 20, 180, ID.Lifeblock, sprites.get("lifeBlock"));
@@ -751,12 +747,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
             blocks3.add(blue1);
 
         }
-//
-//        // gray block
-//        for(int i = 0; i < 9; i++) {
-//            Block gray1 = new Block(300, i * 20 + 60, ID.Block, sprites.get("grayBlock"));
-//            blocks3.add(gray1);
-//        }
+
 
     }
 
@@ -1075,6 +1066,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
                         biglegs3.remove(biglegObj);
                         biglegCount3--;
                         System.out.println(biglegCount);
+                        if(biglegCount3==0)
+                            gameWon=true;
 
                     }
                 }

@@ -14,7 +14,7 @@ public class MusicPlayer implements Runnable {
         musicFiles = new HashMap<>();
 
         for(String file: files){
-            musicFiles.put(file, "./Resources/" + file + ".wav");
+            musicFiles.put(file, "Resources/" + file + ".wav");
         }
     }
 

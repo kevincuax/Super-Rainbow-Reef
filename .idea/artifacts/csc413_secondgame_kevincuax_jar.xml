@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="csc413-secondgame-kevincuax:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/csc413_secondgame_kevincuax_jar</output-path>
+    <root id="archive" name="csc413-secondgame-kevincuax.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/production/csc413-secondgame-kevincuax/META-INF/MANIFEST.MF" />
+        <element id="module-source" name="csc413-secondgame-kevincuax" />
+        <element id="dir-copy" path="$PROJECT_DIR$/out/production/csc413-secondgame-kevincuax" />
+      </element>
+      <element id="module-output" name="csc413-secondgame-kevincuax" />
+    </root>
+  </artifact>
+</component>

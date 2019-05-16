@@ -456,31 +456,30 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
 
 
-//        if(timePassed < 10){
-////        if(elapsedSeconds2 < 10){
-////            System.out.println(elapsedSeconds);
-//
-//            this.drawTitle(g);
-//            g.setFont(new Font("Courier", Font.PLAIN, 24));
-////            g.drawString("Loading...", 500, 440);
-//
-//            if(timePassed < 2.01){
-//                g.drawString("Loading...", 500, 440);
-//            }
-//            if(timePassed > 2.01 && timePassed < 5.01){
-//                g.drawString("Loading..", 500, 440);
-//            }
-//            if(timePassed > 5.01 && timePassed < 8.01){
-//                g.drawString("Loading.", 500, 440);
-//
-//            }
-//            if(timePassed > 8.01 && timePassed < 10.01){
-//                g.drawString("Loading...", 500, 440);
-//
-//            }
-//
-//            }
-//        else {
+        if(timePassed < 10){
+
+
+            this.drawTitle(g);
+            g.setFont(new Font("Courier", Font.PLAIN, 24));
+//            g.drawString("Loading...", 500, 440);
+
+            if(timePassed < 2.01){
+                g.drawString("Loading...", 500, 440);
+            }
+            if(timePassed > 2.01 && timePassed < 5.01){
+                g.drawString("Loading..", 500, 440);
+            }
+            if(timePassed > 5.01 && timePassed < 8.01){
+                g.drawString("Loading.", 500, 440);
+
+            }
+            if(timePassed > 8.01 && timePassed < 10.01){
+                g.drawString("Loading...", 500, 440);
+
+            }
+
+            }
+        else {
             if (!gameOver) {
                 this.setBackground(g);
 
@@ -505,7 +504,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
                 drawGameover(g);
             }
-//        }
+        }
 
 
     }

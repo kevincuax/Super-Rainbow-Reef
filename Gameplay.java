@@ -265,6 +265,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 //        block1.draw(g);
 //        block2.draw(g);
         if(!lvl1Beat) {
+//            for (Block blockObj : blocks2) {
+//                blockObj.draw(g);
+//            }
             for (Block blockObj : blocks) {
                 blockObj.draw(g);
             }
@@ -347,7 +350,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     public void getRandomBlock(ArrayList<Block> blocks){
         Random r = new Random();
         int low = 0;
-        int high;
+        int high=0;
         if(!lvl1Beat)
             high = blocks.size();
         if(lvl1Beat && !lvl2Beat)
@@ -615,7 +618,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         }
 
         // purple block
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 8; i++) {
             Block purple1 = new Block(260, i * 20 + 200, ID.Block, sprites.get("purpleBlock"));
             blocks2.add(purple1);
             Block purple2 = new Block(340, i * 20 + 200, ID.Block, sprites.get("purpleBlock"));
@@ -650,7 +653,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         }
 
         // cyan block
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 10; i++) {
 
             Block cyan1 = new Block(100, i * 20 + 180, ID.Block, sprites.get("cyanBlock"));
             Block cyan2 = new Block(500, i * 20 + 180, ID.Block, sprites.get("cyanBlock"));
@@ -667,12 +670,13 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         }
 
         // blue block
-        for(int i = 0; i < 5; i++) {
-            Block blue1 = new Block(20, i * 20 + 160, ID.Block, sprites.get("blueBlock"));
+        for(int i = 0; i < 16; i++) {
+            Block blue1 = new Block(20, i * 20 + 60, ID.Block, sprites.get("blueBlock"));
             blocks2.add(blue1);
-            Block blue2 = new Block(580, i * 20 + 160, ID.Block, sprites.get("blueBlock"));
-
+            Block blue2 = new Block(580, i * 20 + 60, ID.Block, sprites.get("blueBlock"));
             blocks2.add(blue2);
+            Block blue3 = new Block(40 * i, 60, ID.Block, sprites.get("blueBlock"));
+            blocks2.add(blue3);
         }
 
         // gray block

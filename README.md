@@ -1,5 +1,5 @@
 # csc413-SecondGame
 
-## Student Name :
-## Student ID :
+## Student Name : Kevin Dizon-Cua
+## Student ID :917635958
 

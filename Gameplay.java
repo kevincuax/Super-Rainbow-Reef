@@ -7,7 +7,7 @@ import java.awt.event.ActionListener; // for ball
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +22,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
     private Timer timer;
     private int delay = 8;
+    private int drawStringY = 0;
     private int biglegCount;
     private int biglegCount2;
     private int biglegCount3;
@@ -35,6 +36,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     private float x = 100f, y = 100f;
     private int playerX =310;
     private double newElapsedSeconds;
+    private boolean wroteToScores;
     public static HashMap<String,Image> sprites;
 //    private int ballPosX = 120;
 //    private int ballPosY = 350;
@@ -99,7 +101,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
         newElapsedSeconds = 0;
         decRadius = false;
         glowOn = true;
-
+        wroteToScores = false;
 
         this.addBlocks1();
         this.addBlocks2();
@@ -294,9 +296,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
         g.drawString("Score: " + playerScore, 500, 400);
 
-
-
-
     }
 
     public void drawTime(Graphics g){
@@ -424,6 +423,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     public void drawGameover(Graphics g){
         Image img;
         img = sprites.get("gameover");
+        readHighscores(g);
         g.drawImage(img, 200, 170, null);
     }
 
@@ -450,6 +450,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     public void drawCongrats(Graphics g){
         Image img;
         img = sprites.get("congrats");
+        this.readHighscores(g);
         g.drawImage(img, 0, 0, 640, 480, null);
     }
 
@@ -464,8 +465,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
 
         if(!gameWon) {
             if (timePassed < 10) {
-
-
                 this.drawTitle(g);
                 g.setFont(new Font("Courier", Font.PLAIN, 24));
 //            g.drawString("Loading...", 500, 440);
@@ -508,7 +507,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
                 if (gameOver) {
                     this.setBackground(g);
 
-                    drawGameover(g);
+
+                    this.drawGameover(g);
                 }
             }
         }
@@ -814,6 +814,51 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
                 player.playSound("Sound_wall");
             if (pop.getX()  > 580)
                 player.playSound("Sound_wall");
+        }
+    }
+
+    public void readHighscores(Graphics g){
+        File file = new File("highscores.txt");
+
+        try {   if(!wroteToScores) {
+            String str = "\n" + "Player1 " + pop.getScore();
+            BufferedWriter writer = new BufferedWriter(new FileWriter("highscores.txt", true));
+            writer.append(' ');
+            writer.append(str);
+
+            writer.close();
+            wroteToScores = true;
+        }
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String st;
+            g.setFont(g.getFont().deriveFont(20f));
+            g.drawString("Scores", 200, 60);
+
+            while ((st=br.readLine())!=null){
+                System.out.println(st);
+//                g.drawString("Score: " + st + "%n", 500, 400);
+                drawString(g, st, 200, 80);
+//                drawString(g, "Scores\n" + st + "\n", 20, 20);
+            }
+
+//            while ((st = br.readLine()) != null) {
+//                System.out.println(st);
+//                g.drawString("Score: " + st + "%n", 500, 400);
+//                drawString(g, "Scores\n" + st + "\n", 20, 20);
+//
+//            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void drawString(Graphics g, String text, int x, int y) {
+        for (String line : text.split("\n")) {
+            y += drawStringY * g.getFontMetrics().getHeight();
+            g.drawString(line, x, y);
+            drawStringY += 1;
         }
     }
     public void setLvl1Beat(){

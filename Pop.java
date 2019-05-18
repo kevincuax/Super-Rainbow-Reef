@@ -25,7 +25,7 @@ public class Pop extends GameObject {
         this.handler = handler;
         this.y = y;
         this.score = 0;
-        this.lives = 100;
+        this.lives = 15;
         this.inLaunch = false;
     }
 

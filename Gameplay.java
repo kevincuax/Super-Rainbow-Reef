@@ -226,7 +226,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener, Run
     }
 
     public void addBigleg3() {
-        Bigleg bigleg1 = new Bigleg(200, 20, ID.Bigleg, sprites.get("bigleg"));
+        Bigleg bigleg1 = new Bigleg(200, 20, ID.Big leg, sprites.get("bigleg"));
         Bigleg bigleg2 = new Bigleg(400, 20, ID.Bigleg, sprites.get("bigleg"));
 
 
